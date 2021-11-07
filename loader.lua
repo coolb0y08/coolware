@@ -11,7 +11,7 @@ local Owner = "coolb0y08";
 local Path = Owner.."/coolware/main/";
 local Place = game.PlaceId;
 
-Loader.load = function(string, bool, module, func)
+Loader.load = function(string, bool, func)
     if string == Place then
         local __1, __2 = pcall(function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."games/"..Place..".lua"))()
