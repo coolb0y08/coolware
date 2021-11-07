@@ -16,7 +16,7 @@ Loader.load = function(string, bool, func)
         local bool = bool or false
         local func = func or print
         local __1, __2 = pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."games/"..Place..".lua"))()
+            return loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."games/"..Place..".lua"))()
         end)
 
         if not __1 and bool then
@@ -30,7 +30,7 @@ Loader.load = function(string, bool, func)
         local bool = bool or false
         local func = func or print
         local __1, __2 = pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."etc/"..string..".lua"))()
+            return loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."etc/"..string..".lua"))()
         end)
 
         if not __1 and bool then
