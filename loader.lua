@@ -12,7 +12,9 @@ local Path = Owner.."/coolware/main/";
 local Place = game.PlaceId;
 
 Loader.load = function(string, bool, func)
-    if string == Place then
+    if not string or string == game.PlaceId then
+        local bool = bool or false
+        local func = func or print
         local __1, __2 = pcall(function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."games/"..Place..".lua"))()
         end)
@@ -25,6 +27,8 @@ Loader.load = function(string, bool, func)
             func("<font color='rgb(98, 201, 75)'>Loaded</font>")
         end
     else
+        local bool = bool or false
+        local func = func or print
         local __1, __2 = pcall(function()
             loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."etc/"..string..".lua"))()
         end)
