@@ -27,19 +27,7 @@ Loader.load = function(string, bool, func)
             func("<font color='rgb(98, 201, 75)'>Loaded</font>")
         end
     else
-        local bool = bool or false
-        local func = func or print
-        local __1, __2 = pcall(function()
-            return loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."etc/"..string..".lua"))()
-        end)
-
-        if not __1 and bool then
-            func("<font color='rgb(230, 94, 94)'>", debug.traceback(), __2.."</font>")
-        end
-        
-        if __1 and bool then
-            func("<font color='rgb(98, 201, 75)'>Loaded</font>")
-        end
+        return loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."etc/"..string..".lua"))()
     end
 end
 
