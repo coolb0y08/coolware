@@ -26,7 +26,7 @@ Loader.load = function(string, bool, module, func)
         end
     else
         local __1, __2 = pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."etc/"..module..".lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."etc/"..string..".lua"))()
         end)
 
         if not __1 and bool then
