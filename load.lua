@@ -6,14 +6,35 @@ spawn(function()
     end)
 end)
 
+local Loader = {}
 local Owner = "coolb0y08";
-local Path = Owner.."/coolware/main/games/";
+local Path = Owner.."/coolware/main/";
 local Place = game.PlaceId;
 
-local __1, __2 = pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path..Place..".lua"))()
-end)
+Loader.load = function(string, bool, module, func)
+    if string == Place then
+        local __1, __2 = pcall(function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."games/"..Place..".lua"))()
+        end)
 
-if not __1 then
-    print("<font color='rgb(230, 94, 94)'>", debug.traceback(), __2.."</font>")
+        if not __1 and bool then
+            func("<font color='rgb(230, 94, 94)'>", debug.traceback(), __2.."</font>")
+        end
+        
+        if __1 and bool then
+            func("<font color='rgb(98, 201, 75)'>Loaded</font>")
+        end
+    else
+        local __1, __2 = pcall(function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/"..Path.."etc/"..module..".lua"))()
+        end)
+
+        if not __1 and bool then
+            func("<font color='rgb(230, 94, 94)'>", debug.traceback(), __2.."</font>")
+        end
+        
+        if __1 and bool then
+            func("<font color='rgb(98, 201, 75)'>Loaded</font>")
+        end
+    end
 end
