@@ -38,3 +38,5 @@ Loader.load = function(string, bool, module, func)
         end
     end
 end
+
+return Loader
