@@ -7,31 +7,25 @@ local loaderSettings = loaderSettings or {
     cursor = true;
 }
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/coolb0y08/coolware/main/loader.lua"))().load("ui"); do
+local loader = loadstring(game:HttpGet("https://raw.githubusercontent.com/coolb0y08/coolware/main/loader.lua"))()
+local library = loader.load("ui"); do
     for i,v in pairs(loaderSettings) do
         library.theme[i] = v
     end
 end
 
-Information = syn.request({
-    Url = "https://discord.com/api/v6/invite/m9Xd5FYqZz";
-    Method = "GET";
-})
-
-Information = game:GetService('HttpService'):JSONDecode(Information.Body)
-
-Widget = syn.request({
-    Url = "https://discord.com/api/guilds/881892180908703755/widget.json";
-    Method = "GET";
-})
-
-Widget = game:GetService('HttpService'):JSONDecode(Widget.Body)
+local Discord = loader.load("discord")
+local Counter = loader.load("counter")
 
 library._window = library:CreateWindow("coolware v2", Vector2.new(500, 300), "Insert"); do
     local Loader = library._window:CreateTab("Loader"); do
-        Loader:CreateSector("Loader", "Left"):AddButton("Load", function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/coolb0y08/coolware/main/loader.lua"))().load()
-        end)
+        local LoaderSect = Loader:CreateSector("Loader", "Left") do
+            LoaderSect:AddButton("Load", function()
+                loadstring(game:HttpGet("https://raw.githubusercontent.com/coolb0y08/coolware/main/loader.lua"))().load()
+            end)
+
+            LoaderSect:AddLabel("Game:"..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name)
+        end
         
         local themes = Loader:CreateSector("Themes", "Right"); do
             themes:AddToggle("Custom UI name", false, function(t)
@@ -122,14 +116,25 @@ library._window = library:CreateWindow("coolware v2", Vector2.new(500, 300), "In
                 end
             end)
             
-            __Others:AddSeperator("Discord Info")
+            __Others:AddSeperator("Script Info")
+
+            __Others:AddLabel("Executed:"..Counter.get().." time(s)")
             
-            if Widget ~= nil then
-                __Others:AddLabel("Active Members:"..tostring(#Widget.members))
-                __Others:AddLabel("Name:"..tostring(Information.guild.name))
-                __Others:AddLabel("ID:"..tostring(Information.guild.id))
-                __Others:AddLabel("Verification Level:"..tostring(Information.guild.verification_level))
-                __Others:AddLabel("NSFW Level:"..tostring(Information.guild.nsfw_level))
+            if Discord ~= nil then
+                __Others:AddSeperator("Discord Info")
+
+                local Members = Discord.fetch("find", "Member Count").name:gsub("Member Count: ", "")
+                local Roles = Discord.fetch("find", "Role Count").name:gsub("Role Count: ", "")
+                local Channels = Discord.fetch("find", "Channel Count").name:gsub("Channel Count: ", "")
+
+                __Others:AddLabel("Members in server:"..tostring(Members))
+                __Others:AddLabel("Roles in server:"..tostring(Roles))
+                __Others:AddLabel("Channels in server:"..tostring(Channels))
+                __Others:AddLabel("Active Members:"..Discord.fetch("active"))
+                __Others:AddLabel("Name:"..Discord.fetch("guild").name)
+                __Others:AddLabel("ID:"..Discord.fetch("guild").id)
+                __Others:AddLabel("Verification Level:"..Discord.fetch("guild").verification_level)
+                __Others:AddLabel("NSFW Level:"..Discord.fetch("guild").nsfw_level)
                 __Others:AddButton("Join Discord", function()
                     local s, e = pcall(function()
                         syn.request({
@@ -166,3 +171,5 @@ library._window = library:CreateWindow("coolware v2", Vector2.new(500, 300), "In
         end
     end
 end
+
+Counter.load()
