@@ -1,4 +1,4 @@
-local request = syn.request or http_request or http.request or request
+local request = (syn and syn.request) or (http and http.request) or http_request
 local discord = {};
 local HttpService = game:GetService("HttpService")
 
