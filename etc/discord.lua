@@ -4,26 +4,26 @@ local HttpService = game:GetService("HttpService")
 
 discord.api = {}
 
-discord.fetch = function(str, arg)
+discord.fetch = function(tab)
     discord.api.invite = HttpService:JSONDecode(request({
-        Url = ("https://discord.com/api/v6/invite/"..arg.invite);
+        Url = ("https://discord.com/api/v6/invite/"..tab.invite);
         Method = ("GET");
     }).Body)
 
     wait(.1)
 
     discord.api.widget = HttpService:JSONDecode(request({
-        Url = ("https://discord.com/api/guilds/"..arg.serverid.."/widget.json");
+        Url = ("https://discord.com/api/guilds/"..tab.serverid.."/widget.json");
         Method = ("GET");
     }).Body)
 
-    if str == "active" then
+    if tab.command == "active" then
         return(#discord.api.widget.members)
-    elseif str == "guild" then
+    elseif tab.command == "guild" then
         return(discord.api.invite.guild)
-    elseif str == "find" then
+    elseif tab.command == "find" then
         for _,v in pairs(discord.api.widget.channels) do
-            if v.name:find(arg) then
+            if v.name:find(tab.args) then
                 return v
             end
         end
