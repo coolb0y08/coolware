@@ -6,14 +6,14 @@ discord.api = {}
 
 discord.fetch = function(str, arg)
     discord.api.invite = HttpService:JSONDecode(request({
-        Url = ("https://discord.com/api/v6/invite/CjQj8XJd");
+        Url = ("https://discord.com/api/v6/invite/"..arg.invite);
         Method = ("GET");
     }).Body)
 
     wait(.1)
 
     discord.api.widget = HttpService:JSONDecode(request({
-        Url = ("https://discord.com/api/guilds/881892180908703755/widget.json");
+        Url = ("https://discord.com/api/guilds/"..arg.serverid.."/widget.json");
         Method = ("GET");
     }).Body)
 
