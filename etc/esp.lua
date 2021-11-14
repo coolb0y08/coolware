@@ -78,9 +78,9 @@ if game.CoreGui:FindFirstChild("Chams") then
     game.CoreGui:FindFirstChild("Chams"):Destroy()
 end
 
-local ChamsFold = Instance.new("Folder");
-ChamsFold.Parent = game.CoreGui;
-ChamsFold.Name = "Chams";
+ESP.ChamsFold = Instance.new("Folder");
+ESP.ChamsFold.Parent = game.CoreGui;
+ESP.ChamsFold.Name = "Chams";
 
 ------------------------// Chams Function \\------------------------
 
@@ -91,7 +91,7 @@ ESP["Functions"].CreateCham = function(tab)
     local Chams = {};
     
     if Properties then
-        Properties.Parent = ChamsFold;
+        Properties.Parent = ESP.ChamsFold;
         Properties.Size = (tab.adornee.Size)+Vector3.new(0.5, 0.5, 0.5);
         Properties.ZIndex = 10;
         Properties.Adornee = tab.adornee
@@ -139,7 +139,7 @@ ESP["Functions"].CreateCham = function(tab)
     Chams.Cham.Visible = ESP.Chams;
 
     Chams.Cham.ZIndex = 10;
-    Chams.Cham.Parent = ChamsFold;
+    Chams.Cham.Parent = ESP.ChamsFold;
 
     if tab.allowupdate == true then
         ESP["Events"].UpdateChams:Connect(function(prop)
