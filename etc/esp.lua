@@ -287,14 +287,12 @@ ESP["Functions"].CreateBox = function(tab)
 
     if tab.allowupdate then
         ESP["Events"].UpdateBoxes:Connect(function()
-            Boxes.BoxOutline = Drawing.new("Square")
             Boxes.BoxOutline.Visible = ESP["Boxes"]
             Boxes.BoxOutline.Color = ESP["BoxesOutline"]
             Boxes.BoxOutline.Thickness = ESP["BoxesThickness"]+2
             Boxes.BoxOutline.Transparency = 1
             Boxes.BoxOutline.Filled = false
     
-            Boxes.Box = Drawing.new("Square")
             Boxes.Box.Visible = ESP["Boxes"]
             Boxes.Box.Color = ESP["BoxesColor"]
             Boxes.Box.Thickness = ESP["BoxesThickness"]
